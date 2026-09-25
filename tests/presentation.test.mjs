@@ -24,6 +24,7 @@ let socket;
 let nextId = 1;
 const pending = new Map();
 const externalRequests = [];
+let frameStats;
 
 async function waitForPort() {
   const portFile = join(profile, "DevToolsActivePort");
@@ -134,6 +135,22 @@ try {
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
   await checkLayout(1920, 1080);
   await screenshot("scene-01-1920.png");
+  await send("Emulation.setDeviceMetricsOverride", { width: 1366, height: 768, deviceScaleFactor: 1, mobile: false });
+  await send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  frameStats = await evaluate(`(async () => {
+    const intervals = [];
+    let previous = await new Promise(requestAnimationFrame);
+    for (let i = 0; i < 90; i++) {
+      const now = await new Promise(requestAnimationFrame);
+      intervals.push(now - previous);
+      previous = now;
+    }
+    intervals.sort((a, b) => a - b);
+    return { median: intervals[45], p95: intervals[85] };
+  })()`);
+  await send("Emulation.setCPUThrottlingRate", { rate: 1 });
+  await send("Emulation.setDeviceMetricsOverride", { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
+  assert.ok(frameStats.p95 <= 50, `Animation frame p95 exceeded 50 ms under 4x CPU throttle: ${JSON.stringify(frameStats)}`);
   await space();
   assert.equal(await evaluate("document.querySelector('#scene-1 .hero-sub').classList.contains('is-revealed')"), true);
 
@@ -247,6 +264,7 @@ try {
   }
   assert.deepEqual(externalRequests, []);
   console.log("PASS: 13 scenes, navigation, reveals, networks, quiz, resets, optional media, 1920x1080 and 1366x768 layout.");
+  console.log(`Animation proxy (4x CPU throttle, 1366x768): median ${frameStats.median.toFixed(1)} ms, p95 ${frameStats.p95.toFixed(1)} ms.`);
   if (captureScreenshots) console.log(`Screenshots: ${screenshotDir}`);
 } finally {
   socket?.close();

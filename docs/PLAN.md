@@ -2,11 +2,11 @@
 
 Keep one clearly marked active phase. Each phase needs observable exit criteria.
 
-## Active phase — repository release
+## Completed phase — repository release
 
 ### Objective
 
-Finish the local presentation and make the repository ready for publication at the owner's GitHub URL.
+Finish the local presentation and publish it at the owner's GitHub URL.
 
 ### Tasks
 
@@ -14,10 +14,26 @@ Finish the local presentation and make the repository ready for publication at t
 - [x] Add offline media fallbacks, interaction controls, and an English README.
 - [x] Run browser interaction and layout verification at both requested viewport sizes.
 - [x] Review final repository contents and configure local Git history on `main`.
-- [ ] Commit and publish to the configured GitHub origin.
+- [x] Commit and publish `main` to the configured GitHub origin.
 
 ### Exit criteria
 
 - [x] Required browser checks have run and results are recorded in `docs/TESTING.md`.
 - [x] The staged repository contents have been reviewed for generated files and secrets.
-- [ ] Publication state is recorded accurately.
+- [x] GitHub confirmed `main` and `HEAD` at the published initial commit.
+
+## Active phase — presenter rehearsal
+
+### Objective
+
+Validate the lesson on the actual teaching laptop and projector before delivery.
+
+### Tasks
+
+- [ ] Run a 40-minute rehearsal with the target display and browser.
+- [ ] If licensed images or clips are added, test their playback and distribution rights.
+
+### Exit criteria
+
+- [ ] The presenter confirms readability and smooth motion on the teaching hardware.
+- [ ] Any added optional media plays and can be paused and volume-adjusted.

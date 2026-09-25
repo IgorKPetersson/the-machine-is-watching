@@ -2,7 +2,7 @@
 
 ## Current objective
 
-Publish the reviewed static presentation to the configured GitHub repository.
+The presentation is published. The next optional project phase is a presenter rehearsal on the teaching hardware.
 
 ## Completed this session
 
@@ -10,6 +10,7 @@ Publish the reviewed static presentation to the configured GitHub repository.
 - Added a dependency-free headless Chrome integration test and reviewed screenshots at 1920×1080 and 1366×768.
 - Filled the project goal, requirements, design, testing, security, and local development instructions.
 - Initialized local Git on `main` and configured `origin` as `https://github.com/IgorKPetersson/the-machine-is-watching.git`. The remote was empty when checked.
+- Committed and pushed the initial release to `origin/main`; GitHub reported `main` and `HEAD` at the published commit.
 
 ## Files changed
 
@@ -24,10 +25,10 @@ Publish the reviewed static presentation to the configured GitHub repository.
 | Command/check | Result | Notes |
 | --- | --- | --- |
 | `node tests/presentation.test.mjs` | PASS | Local Chrome; 13 scenes, controls, interactions, media fallbacks, reduced motion, no external page requests, and both target viewports. |
-| `node tests/presentation.test.mjs --screenshots` | PASS | All 13 laptop-size captures and selected projector-size captures reviewed before the final CSS formatting; the post-format browser test passed. |
+| `node tests/presentation.test.mjs --screenshots` | PASS | Final implementation: all 13 laptop-size captures and selected projector-size captures reviewed. The 4× CPU-throttled 1366×768 run recorded 16.7 ms median and p95 frame intervals. |
 | `node --check js/presentation.js` | PASS | JavaScript syntax. |
 | `node --check tests/presentation.test.mjs` | PASS | Test script syntax. |
-| `git diff --cached --check` | PASS | No whitespace errors in the staged baseline; rerun after restaging final docs/CSS. |
+| `git diff --cached --check` | PASS | No whitespace errors in the initial published commit. |
 | Local video playback with supplied MP4 | NOT RUN | No licensed media was supplied. |
 | Physical laptop/projector frame-rate measurement | NOT RUN | Headless browser layout and interactions passed; physical performance remains unmeasured. |
 
@@ -39,12 +40,12 @@ Publish the reviewed static presentation to the configured GitHub repository.
 
 ## Open problems / risks
 
-- Git commit and push have not yet completed.
 - Licensed media playback and real laptop/projector motion should be checked by the presenter if media is added.
+- The physical teaching hardware has not been used for a rehearsal.
 
 ## Next smallest action
 
-Restage the final CSS/docs, review the staged diff, commit, and push `main` to `origin`.
+Open `index.html` on the teaching laptop and run a full rehearsal at the projector's native resolution.
 
 ## Do not accidentally undo
 
