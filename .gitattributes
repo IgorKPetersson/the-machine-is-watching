@@ -1,0 +1,27 @@
+# Cross-platform repository defaults for Windows 11 + VS Code + Git Bash.
+# Keep text files normalized in Git and force LF for files commonly consumed by Unix-style tooling.
+* text=auto
+
+*.sh text eol=lf
+*.bash text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.txt text eol=lf
+
+# Preserve Windows-native scripts when a project intentionally adds them.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Common binary formats.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.pdf binary
