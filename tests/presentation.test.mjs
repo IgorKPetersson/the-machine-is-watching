@@ -65,6 +65,33 @@ const left = () => key("ArrowLeft", "ArrowLeft", 37);
 const space = () => key(" ", "Space", 32);
 const scene = () => evaluate("Number(document.querySelector('#scene-number').textContent)");
 const text = (selector) => evaluate(`document.querySelector(${JSON.stringify(selector)}).textContent.trim()`);
+const hasAsset = (path) => existsSync(join(root, path));
+
+async function waitFor(expression, message) {
+  for (let i = 0; i < 60; i++) {
+    if (await evaluate(expression)) return;
+    await delay(100);
+  }
+  throw new Error(message);
+}
+
+async function checkClip(selector, available) {
+  assert.equal(await evaluate("document.querySelector('#presentation-video').hasAttribute('src')"), false);
+  await click(selector);
+  assert.equal(await evaluate("document.querySelector('#media-modal').hidden"), false);
+  if (available) {
+    await waitFor("document.querySelector('#presentation-video').classList.contains('is-ready')", `Clip did not load: ${selector}`);
+    assert.equal(await evaluate("document.querySelector('#presentation-video').paused"), false);
+    // Native controls remain available for pause and volume adjustment.
+    assert.deepEqual(await evaluate("(() => { const v = document.querySelector('#presentation-video'); v.pause(); v.volume = 0.35; return { paused: v.paused, volume: v.volume, controls: v.controls }; })()"), { paused: true, volume: 0.35, controls: true });
+  } else {
+    await waitFor("document.querySelector('#presentation-video').error !== null", `Missing clip did not fail gracefully: ${selector}`);
+    assert.equal(await evaluate("document.querySelector('#media-missing').classList.contains('is-hidden')"), false);
+  }
+  await click("#media-close");
+  assert.equal(await evaluate("document.querySelector('#media-modal').hidden"), true);
+  assert.equal(await evaluate("document.querySelector('#presentation-video').hasAttribute('src')"), false);
+}
 
 async function screenshot(name) {
   if (!captureScreenshots) return;
@@ -134,7 +161,12 @@ try {
   assert.equal(await evaluate("getComputedStyle(document.querySelector('.typed-line')).clipPath"), "none");
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
   await checkLayout(1920, 1080);
+  assert.equal(await evaluate("document.querySelector('#scene-1 .opening-optional-image').classList.contains('is-loaded')"), hasAsset("assets/images/poi-surveillance.jpg"));
   await screenshot("scene-01-1920.png");
+  await evaluate("document.querySelector('#scene-1 .opening-optional-image').src = 'assets/images/not-installed.jpg'");
+  await waitFor("!document.querySelector('#scene-1').classList.contains('has-media-image')", "Opening image fallback did not activate");
+  await evaluate("document.querySelector('#scene-1 .opening-optional-image').src = 'assets/images/poi-surveillance.jpg'");
+  if (hasAsset("assets/images/poi-surveillance.jpg")) await waitFor("document.querySelector('#scene-1').classList.contains('has-media-image')", "Opening image did not restore");
   await send("Emulation.setDeviceMetricsOverride", { width: 1366, height: 768, deviceScaleFactor: 1, mobile: false });
   await send("Emulation.setCPUThrottlingRate", { rate: 4 });
   frameStats = await evaluate(`(async () => {
@@ -154,12 +186,11 @@ try {
   await space();
   assert.equal(await evaluate("document.querySelector('#scene-1 .hero-sub').classList.contains('is-revealed')"), true);
 
-  await click("#scene-1 .media-launch");
-  await delay(150);
-  assert.equal(await evaluate("document.querySelector('#media-modal').hidden"), false);
-  assert.equal(await evaluate("document.querySelector('#media-missing').classList.contains('is-hidden')"), false);
-  await click("#media-close");
-  assert.equal(await evaluate("document.querySelector('#media-modal').hidden"), true);
+  await checkClip("#scene-1 .media-launch", hasAsset("assets/video/poi-intro.mp4"));
+  // A deliberately absent file must still show the original placeholder.
+  await evaluate("document.querySelector('#scene-1 .media-launch').dataset.video = 'assets/video/not-installed.mp4'");
+  await checkClip("#scene-1 .media-launch", false);
+  await evaluate("document.querySelector('#scene-1 .media-launch').dataset.video = 'assets/video/poi-intro.mp4'");
 
   await right();
   assert.equal(await scene(), 2);
@@ -169,7 +200,14 @@ try {
   assert.equal(await scene(), 2);
   for (let i = 0; i < 4; i++) await space();
   assert.equal(await evaluate("document.querySelectorAll('#scene-2 .reveal.is-revealed').length"), 4);
+  assert.equal(await evaluate("document.querySelector('#scene-2 .image-frame img').classList.contains('is-loaded')"), hasAsset("assets/images/poi-machine.jpg"));
   await checkLayout(1920, 1080);
+  await screenshot("scene-02-1920.png");
+  await evaluate("document.querySelector('#scene-2 .image-frame img').src = 'assets/images/not-installed.jpg'");
+  await waitFor("!document.querySelector('#scene-2 .image-frame img').classList.contains('is-loaded')", "2011 image fallback did not activate");
+  assert.equal(await evaluate("document.querySelector('#scene-2 .image-fallback').getClientRects().length > 0"), true);
+  await evaluate("document.querySelector('#scene-2 .image-frame img').src = 'assets/images/poi-machine.jpg'");
+  if (hasAsset("assets/images/poi-machine.jpg")) await waitFor("document.querySelector('#scene-2 .image-frame img').classList.contains('is-loaded')", "2011 image did not restore");
   await right();
   assert.equal(await scene(), 3);
   for (const id of ["machine-cameras", "machine-phones", "machine-text", "machine-location", "machine-relations", "machine-ml"]) await click(`#${id}`);
@@ -182,6 +220,8 @@ try {
   for (let i = 0; i < 3; i++) await space();
   assert.equal(await scene(), 4);
   assert.equal(await evaluate("document.querySelector('#scene-4 .snowden-reveal').classList.contains('is-revealed')"), true);
+  await checkClip("#scene-4 .media-launch", hasAsset("assets/video/poi-system-surveillance.mp4"));
+  await screenshot("scene-04-1920.png");
   await right();
   for (let i = 0; i < 3; i++) await click("#metadata-next");
   assert.equal(await text("#metadata-counter"), "04 / 04");
@@ -195,9 +235,15 @@ try {
   await click("#build-llm");
   await click("#build-agent");
   assert.equal(await text("#builder-status-text"), "SITUATIONAL MODEL GENERATED");
+  assert.equal(await evaluate("document.querySelector('#scene-6').dataset.buildLevel"), "complete");
   await screenshot("scene-06-1920.png");
+  await send("Emulation.setDeviceMetricsOverride", { width: 1366, height: 768, deviceScaleFactor: 1, mobile: false });
+  await checkLayout(1366, 768);
+  await screenshot("scene-06-active-1366.png");
+  await send("Emulation.setDeviceMetricsOverride", { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
   await click("#builder-reset");
   assert.equal(await text("#builder-status-text"), "SYSTEM OFFLINE");
+  assert.equal(await evaluate("document.querySelector('#scene-6').dataset.buildLevel"), "offline");
   await right();
   assert.equal(await scene(), 7);
   assert.equal(await evaluate("document.querySelector('#quiz-answer').classList.contains('is-visible')"), false);
@@ -222,6 +268,8 @@ try {
   assert.equal(await evaluate("document.querySelector('.tooltip-trigger').getAttribute('aria-expanded')"), "true");
   await right();
   assert.equal(await scene(), 9);
+  assert.equal(await evaluate("document.querySelector('#scene-9 .ontology-support-image').classList.contains('is-loaded')"), hasAsset("assets/images/poi-server-room.jpg"));
+  await screenshot("scene-09-1920.png");
   await right();
   assert.equal(await scene(), 10);
   await space();
@@ -230,6 +278,7 @@ try {
   assert.equal(await scene(), 11);
   await click("[data-governance='state']");
   assert.ok((await text("#governance-description")).includes("legal frameworks"));
+  await screenshot("scene-11-1920.png");
   await right();
   assert.equal(await scene(), 12);
   for (let i = 0; i < 6; i++) await space();
@@ -238,10 +287,15 @@ try {
   assert.equal(await evaluate("document.querySelector('#scene-12').dataset.numberPhase"), "6");
   await click("[data-choice='B']");
   assert.ok((await text("#choice-result")).includes("HUMAN REVIEW"));
-  await click("#scene-12 .media-launch");
-  await delay(100);
-  assert.equal(await evaluate("document.querySelector('#media-missing').classList.contains('is-hidden')"), false);
-  await click("#media-close");
+  assert.equal(await evaluate("document.querySelector('#scene-12 .number-optional-image').classList.contains('is-loaded')"), hasAsset("assets/images/poi-number.jpg"));
+  await send("Emulation.setDeviceMetricsOverride", { width: 1366, height: 768, deviceScaleFactor: 1, mobile: false });
+  await checkLayout(1366, 768);
+  await screenshot("scene-12-case-1366.png");
+  await send("Emulation.setDeviceMetricsOverride", { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
+  await checkClip("#scene-12 .media-launch", hasAsset("assets/video/poi-number.mp4"));
+  await evaluate("document.querySelector('#scene-12 .media-launch').dataset.video = 'assets/video/not-installed.mp4'");
+  await checkClip("#scene-12 .media-launch", false);
+  await evaluate("document.querySelector('#scene-12 .media-launch').dataset.video = 'assets/video/poi-number.mp4'");
   await screenshot("scene-12-1920.png");
   for (let i = 0; i < 3; i++) await space();
   assert.equal(await evaluate("document.querySelector('#scene-12').dataset.numberPhase"), "9");
@@ -258,7 +312,7 @@ try {
   for (let i = 13; i >= 1; i--) {
     assert.equal(await scene(), i);
     await checkLayout(1366, 768);
-    if (i === 2) assert.equal(await evaluate("document.querySelector('#scene-2 .image-fallback').getClientRects().length > 0"), true);
+    if (i === 2) assert.equal(await evaluate("document.querySelector('#scene-2 .image-frame img').classList.contains('is-loaded')"), hasAsset("assets/images/poi-machine.jpg"));
     await screenshot(`scene-${pad(i)}-1366.png`);
     if (i > 1) await left();
   }

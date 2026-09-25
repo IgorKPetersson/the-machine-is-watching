@@ -359,6 +359,21 @@ i {
   background:linear-gradient(90deg,#06101b 0%,#06101bed 30%,#06101b4c 68%,#07172572),radial-gradient(ellipse at 74% 67%,#1b5367 0%,#092132 40%,#06111c 72%)
 }
 
+/* The still is atmosphere, while the left-side gradient protects the title. */
+.scene-opening.has-media-image:after {
+  background:linear-gradient(90deg,#06101be8 0%,#06101baa 43%,#06101b3d 80%),linear-gradient(0deg,#06101bcc,transparent 42%),radial-gradient(ellipse at center,transparent 45%,#0309139c 100%);
+  border:1px solid #24415465;
+  clip-path:none
+}
+
+.scene-opening.has-media-image .city-art {
+  opacity:.32
+}
+
+.scene-opening.has-media-image .skyline {
+  opacity:.12
+}
+
 .scene-opening:before {
   background-size:42px 42px;
   opacity:.6
@@ -545,19 +560,19 @@ i {
 
 .split-layout {
   display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:6vw;
+  grid-template-columns:.78fr 1.22fr;
+  gap:2vw;
   align-items:center
 }
 
 .year-display {
-  font:clamp(100px,11vw,190px)/1 Consolas,monospace;
+  font:clamp(68px,6vw,110px)/1 Consolas,monospace;
   font-weight:700;
   letter-spacing:-.09em;
-  color:#a7edff1a;
+  color:#a7edff66;
   position:absolute;
-  top:8%;
-  left:4%
+  top:-110px;
+  left:0
 }
 
 .copy-column {
@@ -613,12 +628,13 @@ i {
 }
 
 .image-frame {
-  height:min(57vh,540px);
-  min-height:320px;
+  width:100%;
+  height:auto;
+  aspect-ratio:1.95;
   position:relative;
-  border:1px solid #4c88a5;
+  border:1px solid #4c88a58c;
   background:radial-gradient(circle at 50% 40%,#0c3951,#071723 60%);
-  box-shadow:0 0 70px #15485a3b;
+  box-shadow:0 0 80px #15485a45;
   overflow:hidden
 }
 
@@ -631,12 +647,22 @@ i {
   pointer-events:none
 }
 
+.image-frame:after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(0deg,#06111cd6,transparent 26%),linear-gradient(90deg,#06111c55,transparent 28%),radial-gradient(ellipse at center,transparent 45%,#06111c70)
+}
+
 .image-frame img {
   width:100%;
   height:100%;
   object-fit:cover;
   display:none;
-  filter:saturate(.5) contrast(1.1)
+  object-position:center;
+  filter:saturate(.55) contrast(1.12)
 }
 
 .image-frame img.is-loaded {
@@ -859,6 +885,16 @@ i {
 
 .scene-snowden {
   background:linear-gradient(90deg,#06111cf5,#092031ab),radial-gradient(circle at 80% 60%,#6073893d,transparent 35%)
+}
+
+.archive-media {
+  position:absolute;
+  right:5vw;
+  bottom:7vh;
+  z-index:3;
+  border-color:#6a899858;
+  color:#b7d7e2;
+  background:#06131dbb
 }
 
 .document-art {
@@ -1125,14 +1161,42 @@ i {
   background:radial-gradient(circle at 52% 54%,#13445a,#071622 57%,#050e18)
 }
 
+.scene-builder[data-build-level="active"] {
+  background:radial-gradient(circle at 52% 54%,#1c536a,#071622 59%,#050e18)
+}
+
+.scene-builder[data-build-level="complete"] {
+  background:radial-gradient(circle at 52% 54%,#276d85,#082131 59%,#050e18)
+}
+
 .scene-builder:before {
   background-size:48px 48px;
   opacity:.55
 }
 
 .builder-diagram {
+  isolation:isolate;
   height:calc(100% - 163px);
   min-height:370px
+}
+
+.builder-diagram:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.25;
+  background:repeating-linear-gradient(90deg,transparent 0 72px,#8de7f017 73px 74px,transparent 75px 130px),radial-gradient(circle at 50% 50%,#63d9ed21,transparent 42%);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)
+}
+
+.scene-builder[data-build-level="complete"] .builder-diagram:before {
+  opacity:.65
+}
+
+.builder-diagram .wires .is-active {
+  filter:drop-shadow(0 0 5px #7ce8ff)
 }
 
 .builder-diagram .diagram-node {
@@ -1185,7 +1249,12 @@ i {
 }
 
 .builder-core.pulse {
-  box-shadow:0 0 75px #56d5eeaa,0 0 0 25px #1d668044
+  box-shadow:0 0 75px #56d5eeaa,0 0 0 25px #1d668044,0 0 0 48px #1d66801c
+}
+
+.scene-builder[data-build-level="complete"] .builder-core {
+  background:radial-gradient(circle,#277b9a,#0a3549 61%,#071823);
+  box-shadow:0 0 85px #56d5eec9,0 0 0 25px #1d668044,0 0 0 48px #1d66801c
 }
 
 .core-rings {
@@ -1624,9 +1693,42 @@ i {
 }
 
 .ontology-panel {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   border:1px solid #3e6475;
   padding:18px;
-  background:#0a1c28aa
+  background:#0a1c28f2
+}
+
+.ontology-support-image {
+  display:none;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:left center;
+  opacity:.19;
+  filter:grayscale(1) brightness(.65) contrast(1.3)
+}
+
+.ontology-support-image.is-loaded {
+  display:block
+}
+
+.ontology-panel:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(0deg,#081722d6,#08172273),linear-gradient(90deg,transparent,#0817228c)
+}
+
+.ontology-panel .panel-title,.ontology-map {
+  position:relative;
+  z-index:2
 }
 
 .ontology-map {
@@ -1968,6 +2070,31 @@ i {
   background:radial-gradient(circle at 78% 30%,#392c33,#081925 45%,#060f19)
 }
 
+/* Blur and shade the licensed still: its original face and labels must never
+   appear to be the identity or evidence of the invented classroom subject. */
+.number-optional-image {
+  display:none;
+  position:absolute;
+  right:-12px;
+  top:-12px;
+  width:62%;
+  height:calc(100% + 24px);
+  object-fit:cover;
+  object-position:right center;
+  opacity:.5;
+  filter:grayscale(1) blur(12px) brightness(.65)
+}
+
+.number-optional-image.is-loaded {
+  display:block
+}
+
+.scene-number:before {
+  z-index:1;
+  background:linear-gradient(90deg,#06111cf5,#06111cbf 55%,#06111c9c),linear-gradient(0deg,#06111ce8,transparent 50%),linear-gradient(#4ca8c110 1px,transparent 1px);
+  background-size:auto,auto,64px 64px
+}
+
 .number-layout {
   padding-top:clamp(24px,3vh,45px);
   padding-bottom:20px
@@ -2038,8 +2165,8 @@ i {
 
 .evidence-item {
   padding:16px 18px;
-  border:1px solid #3c667a;
-  background:#0b2533;
+  border:1px solid #3c667a9c;
+  background:#071c29cc;
   font-size:clamp(13px,1.15vw,17px)
 }
 
@@ -2056,7 +2183,7 @@ i {
   margin-top:18px;
   border:1px solid #a46c69;
   padding:11px 20px;
-  background:#4c262557
+  background:#311c22c9
 }
 
 .risk-score span {
@@ -2124,7 +2251,7 @@ i {
 .number-aftermath,.number-discussion {
   position:absolute;
   inset:17% 5% 6%;
-  background:#081722f5;
+  background:#06111cf0;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -3012,8 +3139,9 @@ i {
   width:100%;
   height:100%;
   object-fit:cover;
-  opacity:.3;
-  filter:saturate(.5) contrast(1.2)
+  object-position:center 42%;
+  opacity:.78;
+  filter:saturate(.45) contrast(1.12) brightness(.7)
 }
 
 .opening-optional-image.is-loaded {
@@ -3039,11 +3167,11 @@ i {
 }
 
 .scene-palantir .section-heading {
-  height:120px
+  height:145px
 }
 
 .scene-palantir .palantir-layout {
-  height:calc(100% - 120px)
+  height:calc(100% - 145px)
 }
 
 .agent-stage.is-agent .agent-mode {

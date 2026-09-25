@@ -1,3 +1,9 @@
 .qa-output/
 .chrome-test-*/
 Thumbs.db
+
+# Local licensed media is optional and must not be published by accident.
+/assets/images/*
+!/assets/images/.gitkeep
+/assets/video/*
+!/assets/video/.gitkeep

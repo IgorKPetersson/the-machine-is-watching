@@ -15,7 +15,7 @@ This is a static browser presentation. It reads only its own HTML, CSS, JavaScri
 
 ## Data / control flow
 
-The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Optional video is assigned a source only after a click. Optional image and video load failures expose fallbacks.
+The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Optional video is assigned a source only after a click. Optional image and video load failures expose fallbacks. Scene 1 and scene 12 use image layers behind guarded text; scene 9 uses a subdued still inside the ontology panel. The scene 12 source image is intentionally blurred and darkened because its visible faces and labels are unrelated to the invented classroom case.
 
 ## Invariants
 
@@ -26,7 +26,7 @@ The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sec
 
 ## Failure handling
 
-- Missing images retain the built-in image placeholder.
+- The scene 2 still retains the built-in placeholder when missing; optional background/support images simply fall back to the existing dark layout.
 - Missing video retains the custom missing-media panel.
 - Unsupported or denied fullscreen leaves ordinary navigation available.
 

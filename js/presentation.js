@@ -172,11 +172,19 @@
     $("#presenter-timer").textContent = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
   }, 1000);
 
-  // Optional video has no source until a person clicks Play. Missing files are
-  // reported in the custom placeholder instead of leaving a broken player.
+  // Optional video has no source until a person clicks Play. Missing files
+  // lead to the designed placeholder without blocking the presentation.
   const video = $("#presentation-video");
+  function loadMedia(path) {
+    $("#media-filename").textContent = path;
+    video.src = path;
+    video.load();
+    video.play().catch(() => {});
+  }
   function closeMedia() {
     video.pause();
+    video.removeAttribute("src");
+    video.load();
     $("#media-modal").hidden = true;
     scenes[current].tabIndex = -1;
     scenes[current].focus({ preventScroll: true });
@@ -186,10 +194,7 @@
     $("#media-missing").classList.remove("is-hidden");
     video.classList.remove("is-ready");
     $("#media-modal-title").textContent = button.dataset.mediaTitle.toUpperCase();
-    $("#media-filename").textContent = button.dataset.video;
-    video.src = button.dataset.video;
-    video.load();
-    video.play().catch(() => {});
+    loadMedia(button.dataset.video);
     $("#media-close").focus();
   }));
   video.addEventListener("loadeddata", () => {
@@ -206,9 +211,13 @@
   });
 
   $$("[data-optional-image]").forEach((image) => {
-    image.addEventListener("load", () => image.classList.add("is-loaded"));
-    image.addEventListener("error", () => image.classList.remove("is-loaded"));
-    if (image.complete && image.naturalWidth) image.classList.add("is-loaded");
+    const setLoaded = (loaded) => {
+      image.classList.toggle("is-loaded", loaded);
+      image.closest(".scene").classList.toggle("has-media-image", loaded);
+    };
+    image.addEventListener("load", () => setLoaded(true));
+    image.addEventListener("error", () => setLoaded(false));
+    if (image.complete && image.naturalWidth) setLoaded(true);
   });
 
   // Scene 3: activation is idempotent; reset returns all six sources to idle.
@@ -281,6 +290,7 @@
     $("#builder-status-text").textContent = status;
     $("#builder-source-count").textContent = `${pad(total)} / 07 MODULES ACTIVE`;
     $("#builder-core").classList.toggle("pulse", sourceCount >= 3);
+    $("#scene-6").dataset.buildLevel = total === 7 ? "complete" : sourceCount ? "active" : "offline";
     [2, 3, 4, 5].forEach((threshold, index) => document.getElementById(`entity-${index + 1}`).classList.toggle("is-visible", sourceCount >= threshold));
     drawDiagram("builder");
   }

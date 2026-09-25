@@ -20,15 +20,17 @@ No code-coverage threshold is configured.
 
 ## Known verification gaps
 
-- Actual video playback, pause, and volume behavior with licensed local MP4 files has not been tested because no clips are bundled. The UI uses the browser's native video controls.
-- A 4× CPU-throttled headless Chrome run at 1366×768 measured a 16.7 ms median and 16.7 ms 95th-percentile animation frame interval. Performance on the presenter's physical laptop/projector has not been measured.
+- The three locally supplied MP4 clips were tested in headless Chrome with play-after-click, pause, and volume controls. Playback on the physical teaching laptop/projector has not been measured.
+- A 4× CPU-throttled headless Chrome run at 1366×768 measured a 16.7 ms median and 16.8 ms 95th-percentile animation frame interval on the media-integrated implementation. Physical projector performance remains unmeasured.
+- Media files are local, ignored by Git, and untracked. Their distribution rights have not been verified; the published repository can still run with media absent.
 
 ## Results for the current implementation
 
-- `node --check js/presentation.js`: PASS.
-- `node tests/presentation.test.mjs`: PASS after the final animation and focus changes. The test checks 13 scenes, navigation, reveals, clickable nodes, resets, media fallbacks, reduced motion, no external page requests, and both required viewports.
-- `node tests/presentation.test.mjs --screenshots`: PASS on the final implementation; captured all 13 scenes at 1366×768 and selected scenes at 1920×1080 for visual review.
-- The same browser test checks a 4× CPU-throttled animation proxy at 1366×768; median and p95 were both 16.7 ms in the final run.
+- `node --check js/presentation.js`: PASS after media integration.
+- `node --check tests/presentation.test.mjs`: PASS after test updates.
+- `node tests/presentation.test.mjs`: PASS with supplied media; checks 13 scenes, interactions, images, click-triggered video, pause/volume, deliberate missing-media cases, reduced motion, no external page requests, and both required viewports.
+- `node tests/presentation.test.mjs --screenshots`: PASS after final scene 2 crop adjustment. Captured all 13 scenes at 1366×768, selected scenes at 1920×1080, plus the active builder and fictional case at 1366×768. Media-heavy scenes 1, 2, 4, 6, 9, 11, and 12 were visually reviewed at both sizes.
+- The same browser test checks a 4× CPU-throttled animation proxy at 1366×768; median 16.7 ms and p95 16.8 ms in the final screenshot run.
 
 ## Test evidence rule
 

@@ -30,16 +30,21 @@ When a button or video control has focus, its own keyboard behavior takes priori
 
 ## Add optional images and video
 
-No media files are bundled. Use only files you have the right to present or distribute. The interface shows a designed fallback when a file is absent.
+No media files are bundled. Files placed in the two asset directories are ignored by Git by default, except for their `.gitkeep` placeholders. Use only files you have the right to present or distribute. The interface shows a designed fallback when a file is absent.
 
 | File | Used in |
 | --- | --- |
-| `assets/images/poi-surveillance.jpg` | Optional opening background |
-| `assets/images/poi-machine.jpg` | 2011 image frame |
-| `assets/video/poi-intro.mp4` | Optional opening clip |
-| `assets/video/poi-number.mp4` | Optional clip in The Number scene |
+| `assets/images/poi-surveillance.jpg` | Opening atmosphere in scene 1 |
+| `assets/images/poi-machine.jpg` | Main fiction still in scene 2 |
+| `assets/images/poi-server-room.jpg` | Subdued infrastructure texture behind the scene 9 ontology |
+| `assets/images/poi-number.jpg` | Obscured background texture in the fictional scene 12 case |
+| `assets/video/poi-intro.mp4` | Optional opening clip in scene 1 |
+| `assets/video/poi-system-surveillance.mp4` | Optional fictional transition clip in scene 4 |
+| `assets/video/poi-number.mp4` | Optional clip in scene 12 |
 
 Put images in `assets/images/` and videos in `assets/video/`, keeping the filenames above or updating their paths in `index.html`. Video loads and starts only after a click. The native player provides pause and volume controls. Closing the player pauses playback. The presentation remains usable if every media file is missing.
+
+The supplied scene 12 still contains its own faces and labels. It is deliberately blurred and darkened so it does not depict the invented subject or provide evidence for the illustrative score. Do not remove that treatment without reviewing the image and the fictional-case disclaimer. Local media files should only be committed or distributed after their rights have been confirmed.
 
 ## Edit text and scenes
 
