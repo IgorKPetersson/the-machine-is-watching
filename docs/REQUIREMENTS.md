@@ -10,6 +10,7 @@ Requirements should be observable and testable. Use stable IDs when the project 
 | R-004 | Provide source activation, network expansion, reset controls, capability quiz, and fictional case decision. | Browser interaction check. | accepted |
 | R-005 | Show designed fallbacks when optional images or videos are absent; play video only after a user action. | Browser missing-media check and code review. | accepted |
 | R-006 | Keep the comparison with Palantir neutral and distinguish the fictional Machine from a real data platform. | Copy and source review. | accepted |
+| R-007 | Interactive controls must produce an immediate visible response. Disabled controls must explain their prerequisite, and scene-local reset controls must restore the initial state. | Browser interaction checks for scenes 3, 6, 8, 9, 10, 11, and 12. | accepted |
 
 ## Non-functional requirements
 

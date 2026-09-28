@@ -3259,3 +3259,439 @@ i {
   }
 
 }
+
+/* Interaction-density pass */
+.core-node {
+  cursor:default
+}
+
+.machine-signal,.system-log,.builder-notice,.ontology-card,.connection-count,.number-analysis {
+  font-family:Consolas,monospace;
+  letter-spacing:.06em
+}
+
+.machine-signal {
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:3%;
+  width:270px;
+  transform:translateX(-50%);
+  border-top:1px solid #4b8094;
+  padding-top:8px;
+  text-align:center;
+  pointer-events:none
+}
+
+.machine-signal span,.system-log>span,.connection-count span,.number-analysis span,.ontology-card span {
+  display:block;
+  color:var(--cyan);
+  font-size:8px;
+  margin-bottom:5px
+}
+
+.machine-signal strong {
+  display:block;
+  color:var(--ice);
+  font-size:11px
+}
+
+.machine-signal small {
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:8px
+}
+
+.system-log {
+  position:absolute;
+  z-index:3;
+  border-left:1px solid #3f7186;
+  padding:7px 0 7px 12px;
+  background:#071a26b8;
+  pointer-events:none
+}
+
+.system-log ol {
+  list-style:none;
+  margin:0;
+  padding:0;
+  color:#9fc6d4;
+  font-size:8px;
+  line-height:1.55
+}
+
+.machine-log {
+  left:50%;
+  bottom:1%;
+  width:310px;
+  transform:translateX(-50%)
+}
+
+.builder-source.is-on:after {
+  content:attr(data-result);
+  display:block;
+  max-width:145px;
+  margin:5px auto 0;
+  color:#a9dce7;
+  font-size:7px;
+  line-height:1.15;
+  letter-spacing:.04em
+}
+
+.module-requirement {
+  display:block;
+  margin-top:5px;
+  color:#88a5b2;
+  font-size:7px;
+  line-height:1.15;
+  letter-spacing:.03em
+}
+
+.extension-node:disabled {
+  opacity:.62;
+  cursor:not-allowed;
+  border-style:dashed
+}
+
+.extension-node:disabled .node-icon {
+  color:#668391
+}
+
+.builder-notice {
+  position:absolute;
+  z-index:3;
+  left:56%;
+  top:2%;
+  width:360px;
+  transform:translateX(-50%);
+  color:var(--cyan);
+  text-align:center;
+  font-size:9px;
+  pointer-events:none
+}
+
+.builder-log {
+  right:1%;
+  top:2%;
+  width:260px
+}
+
+.wires .is-data-pulse {
+  stroke:#d5f8ff;
+  stroke-width:4;
+  stroke-dasharray:10 18;
+  animation:data-stream 650ms linear forwards
+}
+
+@keyframes data-stream {
+  from { stroke-dashoffset:120 }
+  to { stroke-dashoffset:0 }
+}
+
+.person-link {
+  opacity:1;
+  visibility:visible
+}
+
+.person-link.is-on:after {
+  content:attr(data-link-label);
+  position:absolute;
+  left:50%;
+  top:calc(100% + 5px);
+  width:max-content;
+  max-width:145px;
+  transform:translateX(-50%);
+  color:var(--cyan);
+  font:7px Consolas,monospace;
+  letter-spacing:.05em;
+  text-shadow:0 1px 4px #06111c
+}
+
+.connection-count {
+  margin-top:18px;
+  border-top:1px solid #35566a;
+  padding-top:12px
+}
+
+.connection-count strong {
+  color:var(--ice);
+  font-size:18px
+}
+
+.network-aside>p {
+  min-height:44px;
+  margin:15px 0
+}
+
+.network-actions {
+  display:flex;
+  gap:8px;
+  align-items:stretch
+}
+
+.network-actions .action-button {
+  flex:1
+}
+
+.network-actions .small-button {
+  flex:0 0 auto
+}
+
+.ontology-map line {
+  stroke:#5e93a8;
+  stroke-width:1.5;
+  stroke-dasharray:5 4;
+  transition:stroke var(--ease),stroke-width var(--ease),opacity var(--ease)
+}
+
+.ontology-map line.is-active {
+  stroke:var(--cyan);
+  stroke-width:3;
+  stroke-dasharray:none;
+  filter:drop-shadow(0 0 4px var(--cyan))
+}
+
+button.ontology-node {
+  cursor:pointer;
+  transition:background var(--ease),border-color var(--ease),box-shadow var(--ease),transform var(--ease)
+}
+
+button.ontology-node:hover,button.ontology-node:focus-visible,button.ontology-node.is-on {
+  background:#16516a;
+  border-color:var(--cyan);
+  box-shadow:0 0 22px #5dd2e75c;
+  transform:translate(-50%,-50%) scale(1.08)
+}
+
+.ontology-card {
+  border-left:2px solid var(--cyan);
+  background:#0a2230b8;
+  padding:11px 14px;
+  margin:0 0 16px
+}
+
+.ontology-card strong {
+  display:block;
+  color:var(--ice);
+  font-size:14px
+}
+
+.ontology-card p {
+  margin:6px 0 0;
+  color:#a9cad7;
+  font:11px/1.35 "Segoe UI",sans-serif;
+  letter-spacing:0
+}
+
+.palantir-copy .flow-row {
+  margin-bottom:16px
+}
+
+.palantir-copy .compare-two>div {
+  padding:12px 0
+}
+
+.palantir-copy .compare-two h3 {
+  margin:9px 0
+}
+
+.palantir-copy .not-equal {
+  margin-top:12px;
+  padding:13px
+}
+
+.agent-flow>span b,.agent-flow>span small {
+  display:block
+}
+
+.agent-flow>span b {
+  color:var(--cyan);
+  font-size:10px;
+  margin-bottom:5px
+}
+
+.agent-flow>span small {
+  max-width:270px;
+  color:var(--ice);
+  font:11px/1.3 "Segoe UI",sans-serif;
+  letter-spacing:0
+}
+
+.llm-flow>span {
+  min-width:300px
+}
+
+.extended-flow>span,.extended-flow>.loop-arrow {
+  opacity:.14;
+  filter:saturate(.25);
+  transition:opacity var(--ease),filter var(--ease),box-shadow var(--ease)
+}
+
+.extended-flow>span.is-visible,.extended-flow>.loop-arrow.is-visible {
+  opacity:1;
+  filter:none;
+  box-shadow:0 0 22px #3dc7e03d
+}
+
+.agent-controls {
+  display:flex;
+  flex-direction:column;
+  gap:10px
+}
+
+.agent-controls p {
+  margin-top:6px
+}
+
+.agent-controls .small-button {
+  align-self:flex-start
+}
+
+.agent-stage[data-agent-step="6"] #agent-reset {
+  display:none
+}
+
+.governance-question strong,.governance-question small {
+  display:block
+}
+
+.governance-question small {
+  color:var(--muted);
+  font:8px Consolas,monospace;
+  letter-spacing:.12em;
+  margin-top:7px
+}
+
+.governance-layers {
+  position:absolute;
+  z-index:2;
+  left:50%;
+  top:66%;
+  width:62%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px;
+  pointer-events:none
+}
+
+.governance-layers span {
+  display:none;
+  padding:5px 7px;
+  border:1px solid #4a778a;
+  background:#0a2432e8;
+  color:#a7cad7;
+  font:8px Consolas,monospace;
+  letter-spacing:.06em
+}
+
+.governance-layers span.is-on {
+  display:block;
+  border-color:var(--cyan);
+  color:var(--cyan);
+  box-shadow:0 0 14px #52c9df32
+}
+
+.governance-node.is-on {
+  transform:translate(-50%,-50%) scale(1.08)
+}
+
+.governance-orbit:has(.governance-node.is-on) .governance-node:not(.is-on) {
+  opacity:.4
+}
+
+.governance-description>small {
+  color:#91afbb;
+  font:9px Consolas,monospace;
+  line-height:1.4
+}
+
+.number-layout>*:not(.evidence-links) {
+  position:relative;
+  z-index:1
+}
+
+.evidence-links {
+  position:absolute;
+  z-index:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none
+}
+
+.evidence-links line {
+  stroke:#55cde3;
+  stroke-width:1.25;
+  stroke-dasharray:4 7;
+  opacity:.45;
+  animation:draw-wire 420ms ease-out forwards
+}
+
+.number-analysis {
+  width:210px;
+  border-left:1px solid #4a7182;
+  padding-left:15px
+}
+
+.number-analysis strong {
+  display:block;
+  color:var(--ice);
+  font-size:18px
+}
+
+.number-analysis small {
+  display:block;
+  color:#9ebcc7;
+  font-size:8px;
+  line-height:1.4;
+  margin-top:5px
+}
+
+.scene-number.risk-visible .risk-score {
+  box-shadow:0 0 36px #df716b40,inset 0 0 22px #df716b14;
+  transform:scale(1.01)
+}
+
+@media(max-width:1050px) {
+  .machine-signal { width:220px }
+  .machine-log { width:255px }
+  .builder-log { width:215px }
+  .builder-notice { width:290px }
+  .number-analysis { width:175px }
+}
+
+@media(max-height:750px) and (min-width:701px) {
+  .machine-signal { top:1% }
+  .machine-log { bottom:0 }
+  .builder-log { top:0 }
+  .builder-notice { top:0 }
+  .number-analysis { width:185px }
+}
+
+@media(max-width:700px) {
+  .machine-signal { width:170px;top:0 }
+  .machine-log { width:210px;bottom:0 }
+  .system-log ol { font-size:6px }
+  .builder-log { display:none }
+  .builder-notice { width:180px;font-size:7px }
+  .builder-source.is-on:after { display:none }
+  .person-link.is-on:after { font-size:6px }
+  .connection-count { margin-top:0;padding-top:5px }
+  .network-actions .small-button { padding:5px }
+  .ontology-card { padding:6px 9px;margin-bottom:5px }
+  .ontology-card p { font-size:9px }
+  .llm-flow>span { min-width:180px }
+  .agent-flow>span small { font-size:9px;max-width:170px }
+  .governance-layers { top:69%;width:75% }
+  .governance-layers span { font-size:6px;padding:3px 4px }
+  .number-analysis { width:150px }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .wires .is-data-pulse,.evidence-links line {
+    animation:none
+  }
+}

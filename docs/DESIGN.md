@@ -15,7 +15,9 @@ This is a static browser presentation. It reads only its own HTML, CSS, JavaScri
 
 ## Data / control flow
 
-The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Optional video is assigned a source only after a click. Optional image and video load failures expose fallbacks. Scene 1 and scene 12 use image layers behind guarded text; scene 9 uses a subdued still inside the ontology panel. The scene 12 source image is intentionally blurred and darkened because its visible faces and labels are unrelated to the invented classroom case.
+The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Scene 3 records source signals and advances the system state. Scene 6 enforces the source, LLM, and agent prerequisite chain in JavaScript and reflects it in visible module hints, notices, logs, entity fragments, and line pulses. Scene 8 stores directly selected relationships in a set while keeping a guided next-link control. Scene 9 highlights the relationships for a selected illustrative ontology object. Scene 10 uses the scene reveal index for its six-step agent example. Scene 11 maps each actor to a visible governance layer. Scene 12 derives its evidence counter, log, risk state, and subject links from the existing reveal phase.
+
+Optional video is assigned a source only after a click. Optional image and video load failures expose fallbacks. Scene 1 and scene 12 use image layers behind guarded text; scene 9 uses a subdued still inside the ontology panel. The scene 12 source image is intentionally blurred and darkened because its visible faces and labels are unrelated to the invented classroom case.
 
 ## Invariants
 
@@ -23,6 +25,8 @@ The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sec
 - All visible copy remains in English.
 - A missing optional media file does not block navigation.
 - The fictional risk score is never presented as a real prediction.
+- Disabled LLM and agent modules expose their deterministic prerequisite in visible text.
+- Added logs, IDs, coordinates, confidence values, and entity records remain explicitly fictional or illustrative.
 
 ## Failure handling
 

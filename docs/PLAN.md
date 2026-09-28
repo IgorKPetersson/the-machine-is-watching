@@ -35,6 +35,20 @@ Polish the published presentation using the media supplied locally in `assets/` 
 - [x] Browser checks and visual review pass at 1920x1080 and 1366x768.
 - [x] Code, CSS, JavaScript, documentation, and tests are released without the local media binaries; `.gitkeep` preserves both asset directories.
 
+## Completed phase — interaction density
+
+### Objective
+
+Make the existing classroom interactions immediately legible and satisfying without changing the 13-scene story, factual framing, offline behavior, or visual identity.
+
+### Exit criteria
+
+- [x] Scenes 3, 6, 8, 9, 10, 11, and 12 show visible system state changes, data relationships, staged results, or governance layers after each click.
+- [x] Scene 6 explains why LLM and agent modules are unavailable and announces each unlock.
+- [x] Scene 8 supports direct node selection, a guided reveal, a connection count, and a complete reset.
+- [x] Browser checks and visual review pass at 1920x1080 and 1366x768 with reduced motion, missing-media fallbacks, keyboard navigation, and no external requests preserved.
+- [x] Work remains isolated on `feature/interaction-pass`; `backup/pre-interaction-pass` remains at the known-good pre-pass commit.
+
 ## Active phase — presenter rehearsal
 
 ### Objective
