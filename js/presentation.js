@@ -8,7 +8,7 @@
 
   const scenes = [...document.querySelectorAll(".scene")];
   const steps = Array(scenes.length).fill(0);
-  const maxSteps = [1, 4, 0, 3, 0, 0, 0, 0, 0, 6, 0, 9, 3];
+  const maxSteps = [1, 4, 0, 3, 0, 0, 0, 0, 0, 6, 0, 7, 2];
   let current = 0;
   let startedAt = Date.now();
   document.getElementById("scene-total").textContent = String(scenes.length);
@@ -507,9 +507,18 @@
     }
     svg.setAttribute("viewBox", `0 0 ${container.clientWidth} ${container.clientHeight}`);
     svg.replaceChildren();
-    const target = centerWithin($("#number-subject"), container);
+    const containerBox = container.getBoundingClientRect();
+    const subjectBox = $("#number-subject").getBoundingClientRect();
+    const target = {
+      x: subjectBox.left - containerBox.left,
+      y: subjectBox.top - containerBox.top + subjectBox.height / 2
+    };
     $$("#number-evidence .evidence-item").slice(0, Math.min(steps[11], 4)).forEach((item) => {
-      const from = centerWithin(item, container);
+      const itemBox = item.getBoundingClientRect();
+      const from = {
+        x: itemBox.right - containerBox.left,
+        y: itemBox.top - containerBox.top + itemBox.height / 2
+      };
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       [["x1", from.x], ["y1", from.y], ["x2", target.x], ["y2", target.y]].forEach(([key, value]) => line.setAttribute(key, value));
       svg.append(line);

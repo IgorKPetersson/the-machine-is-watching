@@ -15,7 +15,7 @@ This is a static browser presentation. It reads only its own HTML, CSS, JavaScri
 
 ## Data / control flow
 
-The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Scene 3 records source signals and advances the system state. Scene 6 enforces the source, LLM, and agent prerequisite chain in JavaScript and reflects it in visible module hints, notices, logs, entity fragments, and line pulses. Scene 8 stores directly selected relationships in a set while keeping a guided next-link control. Scene 9 highlights the relationships for a selected illustrative ontology object. Scene 10 uses the scene reveal index for its six-step agent example. Scene 11 maps each actor to a visible governance layer. Scene 12 derives its evidence counter, log, risk state, and subject links from the existing reveal phase.
+The browser loads `index.html`; `presentation.js` discovers ordered `.scene` sections and maintains the current scene and its reveal step. Interaction handlers update scene-local state. SVG lines are recalculated from rendered node positions after interaction or resize. Scene 3 records source signals and advances the system state. Scene 6 enforces the source, LLM, and agent prerequisite chain in JavaScript and reflects it in visible module hints, notices, logs, entity fragments, and line pulses. Scene 8 stores directly selected relationships in a set while keeping a guided next-link control. Scene 9 highlights the relationships for a selected illustrative ontology object. Scene 10 uses the scene reveal index for its six-step agent example. Scene 11 maps each actor to a visible governance layer. Scene 12 derives its evidence counter, log, risk state, and subject links from the existing reveal phase. Its layout presents evidence, the fictional subject, and the class decision as one left-to-right flow; link endpoints are measured at the evidence and subject edges so lines do not cross the text. Scene 13 opens with its 2011 statement and reveals the 2026 comparison and final question over two advances.
 
 Optional video is assigned a source only after a click. Optional image and video load failures expose fallbacks. Scene 1 and scene 12 use image layers behind guarded text; scene 9 uses a subdued still inside the ontology panel. The scene 12 source image is intentionally blurred and darkened because its visible faces and labels are unrelated to the invented classroom case.
 
@@ -37,3 +37,8 @@ Optional video is assigned a source only after a click. Optional image and video
 ## Trade-offs / unresolved design questions
 
 - Node positions are CSS-based and lines are measured in JavaScript; this keeps the diagrams readable at the target projector and laptop sizes without a graph library.
+
+## Closing-scene composition
+
+- Scene 12 presents evidence, the fictional subject, and the class decision as one left-to-right flow. Link endpoints stop at component edges so lines do not cross the evidence text. Its consequence and discussion cues share one final reflection composition instead of three sparse full-screen states.
+- Scene 13 retains the three closing elements and frames them as a final system transmission. The 2011 statement is visible on entry; the 2026 statement and final question appear on the next two presenter advances so the scene never opens empty.

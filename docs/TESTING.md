@@ -29,7 +29,7 @@ No code-coverage threshold is configured.
 - `node --check js/presentation.js`: PASS after the interaction-density implementation.
 - `node --check tests/presentation.test.mjs`: PASS after the interaction-state coverage update.
 - `node tests/presentation.test.mjs`: PASS with supplied local media. The test covers all 13 scenes, scene 3 signal and reset states, scene 6 prerequisite unlocks, direct and guided scene 8 relationships, scene 9 object cards, all six scene 10 agent stages, the three scene 11 governance layers, scene 12 evidence links and class choice, optional media, reduced motion, no external requests, and both required viewports.
-- `node tests/presentation.test.mjs --screenshots`: PASS. Captures every scene at 1366×768, selected scenes at 1920×1080, and active states for scenes 3, 6, 8, 9, 10, 11, and 12. Those changed scenes were visually reviewed at both sizes with no overlap, clipping, or unreadable interaction label found.
+- `node tests/presentation.test.mjs --screenshots`: PASS after the scene 12 and 13 redesign. Captures every scene at 1366×768, selected scenes at 1920×1080, and active states for scenes 3, 6, 8, 9, 10, 11, and 12. Scenes 12 and 13 were visually reviewed at both target sizes with no overlap, clipping, or unreadable interaction label found.
 - `git diff --check`: PASS; Git reported only expected line-ending conversion warnings.
 - The final browser run's 4× CPU-throttled animation proxy at 1366×768 measured a 16.7 ms median and 16.8 ms p95 frame interval. Physical projector performance remains unmeasured.
 
@@ -41,3 +41,10 @@ Never record a test as passing unless it was actually run against the relevant s
 ## AI / agent security verification
 
 When the project uses LLMs, agents, RAG, MCP/tools, external content, or model-generated actions, tests should assert security effects rather than model wording. Assume the model can be manipulated and verify that deterministic authorization, tenant scope, secret boundaries, tool validation, sandboxing, and approval gates still prevent forbidden effects.
+
+## Closing-scene redesign verification
+
+- `node --check js/presentation.js`: PASS after the scene 12 link-endpoint change.
+- `node --check tests/presentation.test.mjs`: PASS.
+- `node tests/presentation.test.mjs --screenshots`: PASS after the scene 12 and 13 redesign. The test verifies scene 13's visible 2011 entry state, 2026 first reveal, final-question second reveal, and disabled NEXT state at completion. Scenes 12 and 13 were visually reviewed at 1920x1080 and 1366x768 with no clipping, overlap, or unreadable interaction labels.
+- The run preserved all 13 scenes, offline behavior, optional-media fallbacks, reduced motion, keyboard navigation, and zero external requests.

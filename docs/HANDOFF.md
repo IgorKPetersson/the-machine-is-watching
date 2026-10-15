@@ -55,3 +55,19 @@ Review `feature/interaction-pass` in the browser and decide whether it should me
 - Keep scene 8 nodes directly clickable and retain its full reset.
 - Keep scene 12's `87%` score explicitly illustrative and its source image obscured.
 - Do not force-add or publish the ignored local media binaries until rights are confirmed.
+
+## Latest update: closing scenes
+
+- Reworked scene 12 into a left-to-right evidence, subject, and decision composition. Evidence links now stop at the component edges instead of crossing card text.
+- Reworked scene 13 as a final system transmission with a 2011/2026 comparison and a quiet human-decision status.
+- Restored the optional scene 12 clip control to a fixed visible position at both target resolutions; the video file and playback behavior were never removed.
+- Removed scene 13's empty entry state. The 2011 statement appears immediately after scene 12; the 2026 comparison and final question use two deliberate presenter advances.
+- Consolidated scene 12's `WHAT IF`, `FALSE POSITIVE`, and error discussion cues into one populated reflection state. Scene 12 now advances from the decision dashboard to that reflection, then directly to scene 13.
+- Staged scene 13 without reintroducing an empty frame: 2011 is visible on entry, the first advance reveals 2026, and the second reveals the final question and human-decision status.
+- Retained the presenter manuscript's four evidence cues, illustrative 87% score, class choices, false-positive discussion, and three closing statements in the same reveal sequence.
+- `node --check js/presentation.js`: PASS.
+- `node --check tests/presentation.test.mjs`: PASS.
+- `node tests/presentation.test.mjs --screenshots`: PASS; scenes 12 and 13 were visually reviewed at 1920x1080 and 1366x768.
+- `git diff --check`: PASS with expected line-ending warnings only.
+- Local presenter manuscripts remain ignored through a root-level filename pattern and must not be force-added.
+- Next smallest action after publishing this branch: decide whether to merge `feature/interaction-pass` into `main`.
