@@ -68,7 +68,7 @@ The `87%` risk score in The Number is invented. It is not a valid estimate of an
 
 These are reading references for the instructor; the presentation never loads them during use.
 
-- [Privacy and Civil Liberties Oversight Board: report on the telephone records program](https://www.nsa.gov/portals/75/documents/about/civil-liberties/resources/pclob_report_on_telephone_records_program.pdf)
+- [Privacy and Civil Liberties Oversight Board: report on the telephone records program](https://www.pclob.gov/Oversight)
 - [NIST: face recognition, accuracy, and false positives](https://www.nist.gov/speech-testimony/facial-recognition-technology-part-iii-ensuring-commercial-transparency-accuracy)
 - [Palantir: Ontology](https://www.palantir.com/platforms/ontology/)
 - [OpenAI: using tools in agent workflows](https://developers.openai.com/api/docs/guides/tools)
