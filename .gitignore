@@ -4,6 +4,7 @@ Thumbs.db
 
 # Local Swedish presenter manuscripts; keep them off the remote repository.
 /Person_of_Interest_presentationsmanus_SV*.pdf
+!/Person_of_Interest_presentationsmanus_SV_v2.pdf
 
 # Local licensed media is optional and must not be published by accident.
 /assets/images/*

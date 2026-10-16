@@ -14,6 +14,10 @@ python -m http.server 8000
 
 Then open `http://localhost:8000/`. Python is only needed for this optional server method.
 
+## Presenter manuscript
+
+The Swedish presenter manuscript is available as [`Person_of_Interest_presentationsmanus_SV_v2.pdf`](Person_of_Interest_presentationsmanus_SV_v2.pdf).
+
 ## Controls
 
 | Control | Action |
