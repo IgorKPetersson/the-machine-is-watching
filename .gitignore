@@ -11,28 +11,3 @@ Thumbs.db
 !/assets/images/.gitkeep
 /assets/video/*
 !/assets/video/.gitkeep
-
-# Local Codex engineering harness; useful during development, not part of the app.
-/.agents/
-/.harness/
-/.harness-version
-/AGENTS.md
-/AGENTS-PROJECT.md
-/HARNESS-MANIFEST.txt
-/INSTALL.md
-/README_AGENT.md
-/SKILLS-HOW-TO.md
-/templates/
-/reference/
-
-# Local agent workflow and harness template documents.
-/docs/DECISIONS.md
-/docs/HANDOFF.md
-/docs/INDEX.md
-/docs/KNOWLEDGE.md
-/docs/PLAN.md
-/docs/RISKS.md
-/docs/SECURITY-REVIEW-CHECKLIST.md
-/docs/TRACEABILITY.md
-/docs/WINDOWS-GIT-BASH.md
-/docs/adr/
