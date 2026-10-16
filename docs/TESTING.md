@@ -2,7 +2,7 @@
 
 ## Canonical commands
 
-The authoritative runnable commands belong in `AGENTS-PROJECT.md`. This file explains what each layer proves and any environment requirements.
+The runnable verification commands and their environment requirements are documented below.
 
 ## Verification layers
 
@@ -37,10 +37,6 @@ No code-coverage threshold is configured.
 
 Never record a test as passing unless it was actually run against the relevant state. Record `NOT RUN` or `BLOCKED` when appropriate.
 
-
-## AI / agent security verification
-
-When the project uses LLMs, agents, RAG, MCP/tools, external content, or model-generated actions, tests should assert security effects rather than model wording. Assume the model can be manipulated and verify that deterministic authorization, tenant scope, secret boundaries, tool validation, sandboxing, and approval gates still prevent forbidden effects.
 
 ## Closing-scene redesign verification
 
